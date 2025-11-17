@@ -1,0 +1,31 @@
+# YOLOv10 Environment Configuration
+# This is a simplified conda environment file for YOLOv10 with custom improvements
+# Usage: conda env create -f environment.yml
+
+name: yolo_env
+channels:
+  - conda-forge
+  - pytorch
+  - nvidia
+  - defaults
+
+dependencies:
+  - python=3.9
+  - pip
+  - pytorch>=1.8.0
+  - torchvision>=0.9.0
+  - cudatoolkit=11.8  # Adjust based on your CUDA version
+  - numpy>=1.21.0
+  - opencv>=4.6.0
+  - pillow>=7.1.2
+  - pyyaml>=5.3.1
+  - matplotlib>=3.3.0
+  - scipy>=1.4.1
+  - tqdm>=4.64.0
+  - psutil
+  - pandas>=1.1.4
+  - seaborn>=0.11.0
+  - pip:
+    - ultralytics>=8.0.0
+    - thop>=0.1.1
+    - py-cpuinfo

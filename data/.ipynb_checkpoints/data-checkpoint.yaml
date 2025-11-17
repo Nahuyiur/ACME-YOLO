@@ -1,0 +1,24 @@
+# Ultralytics YOLO 🚀, AGPL-3.0 license
+# COCO 2017 dataset https://cocodataset.org by Microsoft
+# Documentation: https://docs.ultralytics.com/datasets/detect/coco/
+# Example usage: yolo train data=data.yaml
+
+# Dataset root directory 
+# path: /root/lanyun-tmp/yolov10/yolov10-main/coco
+
+# Train/val/test sets
+train: /root/lanyun-tmp/yolov10n/coco/train/images 
+val: /root/lanyun-tmp/yolov10n/coco/val/images    
+test: /root/lanyun-tmp/yolov10n/coco/test/images   
+
+names:
+  0: pedestrian
+  1: people
+  2: bicycle
+  3: car
+  4: van
+  5: truck
+  6: tricycle
+  7: awning-tricycle
+  8: bus
+  9: motor
