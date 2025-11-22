@@ -19,11 +19,6 @@ Dense small object detection in drone aerial images faces multiple challenges su
 
 On the VisDrone2019 validation set, ACME-YOLO improves mAP50 by **5.8%** compared to YOLOv10n, and by **1.5%** on the UAVDT dataset, effectively enhancing object detection performance in drone scenarios while maintaining real-time capability.
 
-<div align="center">
-  <img src="images/effect_display.png" alt="ACME-YOLO effect display" width="800"/>
-  <p><em><strong>Density map comparisons between ACME-YOLO and YOLOv10</strong></em></p>
-</div>
-
 ## 🎯 Key Features
 
 - ✅ **Lightweight**: 3.03M parameters (only 11.9% increase)
@@ -59,14 +54,14 @@ Learns dynamic sampling positions to preserve spatial detail information for sma
 Integrates iAFF attention mechanisms and learnable scaling factors to enhance small object feature representations and suppress background noise.
 
 <div align="center">
-  <table style="margin: 0 auto; border-collapse: collapse;">
+  <table style="margin: 0 auto; border-collapse: collapse; width: auto; min-width: 1200px;">
     <tr>
-      <td style="padding: 0 15px; text-align: center; vertical-align: top;">
-        <img src="images/ConvC2fAttnBoost.drawio.png" alt="CCIRES Module" style="height: 400px; width: auto;"/>
+      <td style="padding: 0 15px; text-align: center; vertical-align: top; width: auto;">
+        <img src="images/ConvC2fAttnBoost.drawio.png" alt="CCIRES Module" style="height: 400px; width: auto; max-width: none; object-fit: contain;"/>
         <br/><em><strong>Structure of the CCIRES module</strong></em>
       </td>
-      <td style="padding: 0 15px; text-align: center; vertical-align: top;">
-        <img src="images/iAFF.drawio.png" alt="iAFF Module" style="height: 400px; width: auto;"/>
+      <td style="padding: 0 15px; text-align: center; vertical-align: top; width: auto;">
+        <img src="images/iAFF.drawio.png" alt="iAFF Module" style="height: 400px; width: auto; max-width: none; object-fit: contain;"/>
         <br/><em><strong>Structure of the iAFF module</strong></em>
       </td>
     </tr>
