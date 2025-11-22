@@ -91,37 +91,29 @@ class C2f_iAFF(nn.Module):
         self.cv1 = Conv(c1, 2 * self.c, 1, 1)
         self.cv2 = Conv((2 + n) * self.c, c2, 1)
         self.m = nn.ModuleList(Bottleneck(self.c, self.c, shortcut, g, k=((3, 3), (3, 3)), e=1.0) for _ in range(n))
-        # 在最后应用一次iAFF
         self.iaff = iAFF(c2)
     
     def forward(self, x):
         y = list(self.cv1(x).chunk(2, 1))
         y.extend(m(y[-1]) for m in self.m)
         x = self.cv2(torch.cat(y, 1))
-        # 应用iAFF注意力机制
         return self.iaff(x, x)
     
     def forward_split(self, x):
         y = list(self.cv1(x).split((self.c, self.c), 1))
         y.extend(m(y[-1]) for m in self.m)
         x = self.cv2(torch.cat(y, 1))
-        return self.iaff(x, x) # Also apply iAFF here
+        return self.iaff(x, x) 
 
 class CCIRES(nn.Module):
     def __init__(self, c1, c2, k=3, s=2, n=1, shortcut=True, g=1, e=0.5):
         super().__init__()
-        print(f"Initializing CCIRES with c1={c1}, c2={c2}")  # Debug print
-        # 基础组件，固定n=1，重复次数由YAML控制
         self.conv = Conv(c1, c2, k, s)
-        self.c2f_iaff = C2f_iAFF(c2, c2, 1, shortcut, g, e)  # 固定n=1
+        self.c2f_iaff = C2f_iAFF(c2, c2, 1, shortcut, g, e)  
         
-        # 残差连接优化 - 如果输入输出通道不同，添加1x1卷积
         self.residual_conv = Conv(c1, c2, 1, 1) if c1 != c2 else nn.Identity()
         
-        # 可学习缩放因子 - 自适应调整特征强度
         self.scale = nn.Parameter(torch.ones(1))
-        
-        # 步长处理 - 如果步长大于1，需要调整残差连接
         self.stride = s
         if s > 1:
             self.downsample = nn.AvgPool2d(kernel_size=s, stride=s)
@@ -129,24 +121,14 @@ class CCIRES(nn.Module):
             self.downsample = nn.Identity()
     
     def forward(self, x):
-        print(f"CCIRES forward: input shape {x.shape}")  # Debug print
-        # 保存原始输入用于残差连接
         identity = x
-        
-        # 主路径：Conv -> C2f_iAFF
         out = self.conv(x)
         out = self.c2f_iaff(out)
-        
-        # 残差连接处理
         if self.stride > 1:
-            # 如果步长大于1，需要下采样原始输入
             identity = self.downsample(identity)
             identity = self.residual_conv(identity)
         else:
-            # 如果步长等于1，直接使用残差卷积
             identity = self.residual_conv(identity)
-        
-        # 应用可学习缩放因子并添加残差连接
         out = self.scale * out + identity
         
         return out

@@ -176,9 +176,27 @@ conda activate yolo_env
 
 ### Dataset Preparation
 
-1. Download [VisDrone2019 Dataset](http://aiskyeye.com/)
-2. Dataset split: 6,471 train / 548 validation / 3,190 test images
-3. Update `data/Visdrone2019_dataset.yaml` with your dataset paths
+1. **Download VisDrone2019 Dataset:**
+   - Visit [VisDrone2019 Dataset](http://aiskyeye.com/)
+   - Download and extract the dataset
+   - Dataset split: 6,471 train / 548 validation / 3,190 test images
+
+2. **Organize dataset structure:**
+   ```
+   VisDrone2019/
+   ├── images/
+   │   ├── train/
+   │   ├── val/
+   │   └── test/
+   └── labels/
+       ├── train/
+       ├── val/
+       └── test/
+   ```
+
+3. **Update dataset configuration:**
+   - Edit `data/Visdrone2019_dataset.yaml`
+   - Update the `train`, `val`, and `test` paths to point to your dataset directories
 
 ### Training
 
