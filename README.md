@@ -57,11 +57,11 @@ Integrates iAFF attention mechanisms and learnable scaling factors to enhance sm
   <table style="margin: 0 auto; border-collapse: collapse; width: auto; min-width: 1200px;">
     <tr>
       <td style="padding: 0 15px; text-align: center; vertical-align: top; width: auto;">
-        <img src="images/ConvC2fAttnBoost.drawio.png" alt="CCIRES Module" style="height: 400px; width: auto; max-width: none; object-fit: contain;"/>
+        <img src="images/ConvC2fAttnBoost.drawio.png" alt="CCIRES Module" style="height: 333px; width: auto; max-width: none; object-fit: contain;"/>
         <br/><em><strong>Structure of the CCIRES module</strong></em>
       </td>
       <td style="padding: 0 15px; text-align: center; vertical-align: top; width: auto;">
-        <img src="images/iAFF.drawio.png" alt="iAFF Module" style="height: 400px; width: auto; max-width: none; object-fit: contain;"/>
+        <img src="images/iAFF.drawio.png" alt="iAFF Module" style="height: 333px; width: auto; max-width: none; object-fit: contain;"/>
         <br/><em><strong>Structure of the iAFF module</strong></em>
       </td>
     </tr>
