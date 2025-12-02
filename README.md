@@ -36,7 +36,7 @@ ACME-YOLO makes targeted improvements based on YOLOv10:
 The three modules form a complete pipeline: **enhancement→fusion→restoration**.
 
 <div align="center">
-  <img src="images/ACME.drawio.png" alt="ACME-YOLO Architecture" width="800"/>
+  <img src="images/ACME.png" alt="ACME-YOLO Architecture" width="800"/>
   <p><em><strong>Overall architecture of ACME-YOLO</strong></em></p>
 </div>
 
@@ -46,7 +46,7 @@ The three modules form a complete pipeline: **enhancement→fusion→restoration
 Learns dynamic sampling positions to preserve spatial detail information for small targets.
 
 <div align="center">
-  <img src="images/AdaptiveUpSample.drawio.png" alt="Adaptive UpSample Module" width="600"/>
+  <img src="images/AdaptiveUpSample.png" alt="Adaptive UpSample Module" width="600"/>
   <p><em><strong>Structure of the Adaptive UpSample module</strong></em></p>
 </div>
 
@@ -54,14 +54,14 @@ Learns dynamic sampling positions to preserve spatial detail information for sma
 Integrates iAFF attention mechanisms and learnable scaling factors to enhance small object feature representations and suppress background noise.
 
 <div align="center">
-  <table style="margin: 0 auto; border-collapse: collapse; width: auto; min-width: 1200px;">
+  <table style="margin: 0 auto; border-collapse: collapse; width: auto;">
     <tr>
-      <td style="padding: 0 15px; text-align: center; vertical-align: top; width: auto;">
-        <img src="images/ConvC2fAttnBoost.drawio.png" alt="CCIRES Module" style="height: 333px; width: auto; max-width: none; object-fit: contain;"/>
+      <td style="padding: 0 15px; text-align: center; vertical-align: top;">
+        <img src="images/ConvC2fAttnBoost.png" alt="CCIRES Module" style="height: 320px; width: auto; max-width: 600px; object-fit: contain;"/>
         <br/><em><strong>Structure of the CCIRES module</strong></em>
       </td>
-      <td style="padding: 0 15px; text-align: center; vertical-align: top; width: auto;">
-        <img src="images/iAFF.drawio.png" alt="iAFF Module" style="height: 333px; width: auto; max-width: none; object-fit: contain;"/>
+      <td style="padding: 0 15px; text-align: center; vertical-align: top;">
+        <img src="images/iAFF.png" alt="iAFF Module" style="height: 320px; width: auto; max-width: 620px; object-fit: contain;"/>
         <br/><em><strong>Structure of the iAFF module</strong></em>
       </td>
     </tr>
@@ -72,7 +72,7 @@ Integrates iAFF attention mechanisms and learnable scaling factors to enhance sm
 Uses parallel multi-branch structures to avoid feature degradation caused by serial structures.
 
 <div align="center">
-  <img src="images/MultiScaleFusion.drawio.png" alt="MultiScaleFusion Module" width="600"/>
+  <img src="images/MultiScaleFusion.png" alt="MultiScaleFusion Module" width="600"/>
   <p><em><strong>Structure of the MultiScaleFusion module</strong></em></p>
 </div>
 
