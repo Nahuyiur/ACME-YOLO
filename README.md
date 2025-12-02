@@ -36,8 +36,10 @@ ACME-YOLO makes targeted improvements based on YOLOv10:
 The three modules form a complete pipeline: **enhancement→fusion→restoration**.
 
 <div align="center">
-  <img src="images/ACME.png" alt="ACME-YOLO Architecture" width="800"/>
-  <p><em><strong>Overall architecture of ACME-YOLO</strong></em></p>
+  <div style="display: inline-block; text-align: center;">
+    <img src="images/ACME.png" alt="ACME-YOLO Architecture" width="800"/>
+    <p style="margin: 8px 0 0 0;"><em><strong>Overall architecture of ACME-YOLO</strong></em></p>
+  </div>
 </div>
 
 ## 🔧 Core Modules
@@ -46,8 +48,10 @@ The three modules form a complete pipeline: **enhancement→fusion→restoration
 Learns dynamic sampling positions to preserve spatial detail information for small targets.
 
 <div align="center">
-  <img src="images/AdaptiveUpSample.png" alt="Adaptive UpSample Module" width="600"/>
-  <p><em><strong>Structure of the Adaptive UpSample module</strong></em></p>
+  <div style="display: inline-block; text-align: center;">
+    <img src="images/AdaptiveUpSample.png" alt="Adaptive UpSample Module" width="600"/>
+    <p style="margin: 8px 0 0 0;"><em><strong>Structure of the Adaptive UpSample module</strong></em></p>
+  </div>
 </div>
 
 ### 2. CCIRES Module
@@ -57,12 +61,16 @@ Integrates iAFF attention mechanisms and learnable scaling factors to enhance sm
   <table style="margin: 0 auto; border-collapse: collapse; width: auto;">
     <tr>
       <td style="padding: 0 15px; text-align: center; vertical-align: top;">
-        <img src="images/ConvC2fAttnBoost.png" alt="CCIRES Module" style="height: 320px; width: auto; max-width: 600px; object-fit: contain;"/>
-        <br/><em><strong>Structure of the CCIRES module</strong></em>
+        <img src="images/ConvC2fAttnBoost.png" alt="CCIRES Module" style="height: 320px; width: auto; max-width: 600px; display: block; margin: 0 auto; object-fit: contain;"/>
+        <p style="margin: 8px 0 0 0; text-align: center;">
+          <em><strong>Structure of the CCIRES module</strong></em>
+        </p>
       </td>
       <td style="padding: 0 15px; text-align: center; vertical-align: top;">
-        <img src="images/iAFF.png" alt="iAFF Module" style="height: 320px; width: auto; max-width: 620px; object-fit: contain;"/>
-        <br/><em><strong>Structure of the iAFF module</strong></em>
+        <img src="images/iAFF.png" alt="iAFF Module" style="height: 320px; width: auto; max-width: 620px; display: block; margin: 0 auto; object-fit: contain;"/>
+        <p style="margin: 8px 0 0 0; text-align: center;">
+          <em><strong>Structure of the iAFF module</strong></em>
+        </p>
       </td>
     </tr>
   </table>
@@ -72,8 +80,10 @@ Integrates iAFF attention mechanisms and learnable scaling factors to enhance sm
 Uses parallel multi-branch structures to avoid feature degradation caused by serial structures.
 
 <div align="center">
-  <img src="images/MultiScaleFusion.png" alt="MultiScaleFusion Module" width="600"/>
-  <p><em><strong>Structure of the MultiScaleFusion module</strong></em></p>
+  <div style="display: inline-block; text-align: center;">
+    <img src="images/MultiScaleFusion.png" alt="MultiScaleFusion Module" width="600"/>
+    <p style="margin: 8px 0 0 0;"><em><strong>Structure of the MultiScaleFusion module</strong></em></p>
+  </div>
 </div>
 
 ## 📊 Experimental Results
@@ -104,8 +114,10 @@ Uses parallel multi-branch structures to avoid feature degradation caused by ser
 - Minimal computational overhead (8.4 → 8.7 GFLOPs)
 
 <div align="center">
-  <img src="images/ablation_study.png" alt="Ablation Study Results" width="700"/>
-  <p><em><strong>Figure 5: Ablation study results visualization</strong></em></p>
+  <div style="display: inline-block; text-align: center;">
+    <img src="images/ablation_study.png" alt="Ablation Study Results" width="700"/>
+    <p style="margin: 8px 0 0 0;"><em><strong>Figure 5: Ablation study results visualization</strong></em></p>
+  </div>
 </div>
 
 ### Comparison with State-of-the-Art Methods
@@ -130,8 +142,10 @@ Uses parallel multi-branch structures to avoid feature degradation caused by ser
 </div>
 
 <div align="center">
-  <img src="images/main_dataset_chart.png" alt="VisDrone2019 Comparison" width="700"/>
-  <p><em><strong>Figure 6: Comparison results on VisDrone2019 dataset</strong></em></p>
+  <div style="display: inline-block; text-align: center;">
+    <img src="images/main_dataset_chart.png" alt="VisDrone2019 Comparison" width="700"/>
+    <p style="margin: 8px 0 0 0;"><em><strong>Figure 6: Comparison results on VisDrone2019 dataset</strong></em></p>
+  </div>
 </div>
 
 #### UAVDT Dataset
@@ -152,15 +166,19 @@ Uses parallel multi-branch structures to avoid feature degradation caused by ser
 </div>
 
 <div align="center">
-  <img src="images/UAVDT_chart.png" alt="UAVDT Comparison" width="700"/>
-  <p><em><strong>Figure 7: Comparison results on UAVDT dataset</strong></em></p>
+  <div style="display: inline-block; text-align: center;">
+    <img src="images/UAVDT_chart.png" alt="UAVDT Comparison" width="700"/>
+    <p style="margin: 8px 0 0 0;"><em><strong>Figure 7: Comparison results on UAVDT dataset</strong></em></p>
+  </div>
 </div>
 
 ### Detection Results
 
 <div align="center">
-  <img src="images/scene.jpg" alt="Detection Results" width="700"/>
-  <p><em><strong>Figure 8: Detection results on various challenging scenarios</strong></em></p>
+  <div style="display: inline-block; text-align: center;">
+    <img src="images/scene.jpg" alt="Detection Results" width="700"/>
+    <p style="margin: 8px 0 0 0;"><em><strong>Figure 8: Detection results on various challenging scenarios</strong></em></p>
+  </div>
 </div>
 
 ## 🚀 Getting Started
