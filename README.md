@@ -58,19 +58,17 @@ Learns dynamic sampling positions to preserve spatial detail information for sma
 Integrates iAFF attention mechanisms and learnable scaling factors to enhance small object feature representations and suppress background noise.
 
 <div align="center">
-  <table style="margin: 0 auto; border-collapse: collapse; width: auto;">
+  <table style="margin: 0 auto; border-collapse: collapse;">
     <tr>
-      <td style="padding: 0 15px; text-align: center; vertical-align: top;">
-        <img src="images/ConvC2fAttnBoost.png" alt="CCIRES Module" style="height: 320px; width: auto; max-width: 600px; display: block; margin: 0 auto; object-fit: contain;"/>
-        <p style="margin: 8px 0 0 0; text-align: center;">
-          <em><strong>Structure of the CCIRES module</strong></em>
-        </p>
+      <td align="center" valign="top" style="padding: 0 15px;">
+        <img src="images/ConvC2fAttnBoost.png" alt="CCIRES Module" height="320"/>
+        <br/>
+        <em><strong>Structure of the CCIRES module</strong></em>
       </td>
-      <td style="padding: 0 15px; text-align: center; vertical-align: top;">
-        <img src="images/iAFF.png" alt="iAFF Module" style="height: 320px; width: auto; max-width: 620px; display: block; margin: 0 auto; object-fit: contain;"/>
-        <p style="margin: 8px 0 0 0; text-align: center;">
-          <em><strong>Structure of the iAFF module</strong></em>
-        </p>
+      <td align="center" valign="top" style="padding: 0 15px;">
+        <img src="images/iAFF.png" alt="iAFF Module" height="320"/>
+        <br/>
+        <em><strong>Structure of the iAFF module</strong></em>
       </td>
     </tr>
   </table>
