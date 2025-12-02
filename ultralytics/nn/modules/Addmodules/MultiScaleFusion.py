@@ -43,32 +43,50 @@ class ConvolutionBlock(nn.Module):
         conv_out = self.conv(x)
         return self.act(conv_out)
 
-class SpatialPooling(nn.Module):
-    def __init__(self, k=3, s=1):
-        super(SpatialPooling, self).__init__()
-        padding = k // 2
-        self.m = nn.MaxPool2d(kernel_size=k, stride=s, padding=padding)
-    
-    def forward(self, x):
-        return self.m(x)
-
 class MultiScaleFusion(nn.Module):
-    def __init__(self, c1, c2, c3, pool_size=5):
+    """
+    Parallel multi-scale fusion module built with lightweight dilated depthwise convolutions.
+    Compared with SPPELAN, this implementation keeps a similar parameter budget while
+    increasing receptive field diversity through dilations {1, 2, 3}.
+    """
+    def __init__(self, c1, c2, c3, dilations=(1, 2, 3)):
+        """
+        Args:
+            c1 (int): input channels
+            c2 (int): output channels
+            c3 (int): intermediate channel width for each branch
+            dilations (tuple[int]): dilation factors for the parallel branches
+        """
         super().__init__()
-        self.c = c3
-        self.layers = nn.ModuleList([
-            ConvolutionBlock(c1, c3, 1, 1),
-            SpatialPooling(pool_size),
-            SpatialPooling(pool_size),
-            SpatialPooling(pool_size)
-        ])
-        self.output_layer = ConvolutionBlock(4*c3, c2, 1, 1)
+        self.reduce = ConvolutionBlock(c1, c3, 1, 1)
+
+        branches = []
+        for d in dilations:
+            padding = get_padding_size(3, None, d)
+            branches.append(
+                nn.Sequential(
+                    nn.Conv2d(
+                        c3,
+                        c3,
+                        kernel_size=3,
+                        stride=1,
+                        padding=padding,
+                        dilation=d,
+                        groups=c3,
+                        bias=False,
+                    ),
+                    nn.BatchNorm2d(c3),
+                    nn.SiLU(inplace=True),
+                )
+            )
+        self.branches = nn.ModuleList(branches)
+        # +1 accounts for the identity branch (no dilation)
+        self.output_layer = ConvolutionBlock(c3 * (len(dilations) + 1), c2, 1, 1)
     
     def forward(self, x):
-        feature_maps = []
-        data = x
-        for i, layer in enumerate(self.layers):
-            data = layer(data)
-            feature_maps.append(data)
+        reduced = self.reduce(x)
+        feature_maps = [reduced]
+        for branch in self.branches:
+            feature_maps.append(branch(reduced))
         merged_features = torch.cat(feature_maps, dim=1)
         return self.output_layer(merged_features)
