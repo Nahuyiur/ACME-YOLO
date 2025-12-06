@@ -45,9 +45,10 @@ class ConvolutionBlock(nn.Module):
 
 class MultiScaleFusion(nn.Module):
     """
-    Parallel multi-scale fusion module built with lightweight dilated depthwise convolutions.
-    Compared with SPPELAN, this implementation keeps a similar parameter budget while
-    increasing receptive field diversity through dilations {1, 2, 3}.
+    Adaptive parallel multi-scale fusion module with residual branches and 
+    ultra-lightweight learnable branch weighting for small object detection.
+    Each branch preserves fine details via residual connection, and branch
+    contributions are dynamically balanced through scalar weights.
     """
     def __init__(self, c1, c2, c3, dilations=(1, 2, 3)):
         """
@@ -59,6 +60,7 @@ class MultiScaleFusion(nn.Module):
         """
         super().__init__()
         self.reduce = ConvolutionBlock(c1, c3, 1, 1)
+        self.num_branches = len(dilations) + 1  # +1 for identity
 
         branches = []
         for d in dilations:
@@ -80,13 +82,24 @@ class MultiScaleFusion(nn.Module):
                 )
             )
         self.branches = nn.ModuleList(branches)
-        # +1 accounts for the identity branch (no dilation)
-        self.output_layer = ConvolutionBlock(c3 * (len(dilations) + 1), c2, 1, 1)
+        
+        # Ultra-lightweight branch weighting: only num_branches scalar parameters
+        self.branch_weights = nn.Parameter(torch.ones(self.num_branches))
+        
+        self.output_layer = ConvolutionBlock(c3 * self.num_branches, c2, 1, 1)
     
     def forward(self, x):
         reduced = self.reduce(x)
-        feature_maps = [reduced]
-        for branch in self.branches:
-            feature_maps.append(branch(reduced))
+        
+        # Normalize weights via softmax for stable training
+        weights = torch.softmax(self.branch_weights, dim=0)
+        
+        # Identity branch (index 0)
+        feature_maps = [weights[0] * reduced]
+        
+        # Dilated branches
+        for i, branch in enumerate(self.branches):
+            feature_maps.append(weights[i + 1] * branch(reduced))
+        
         merged_features = torch.cat(feature_maps, dim=1)
         return self.output_layer(merged_features)
