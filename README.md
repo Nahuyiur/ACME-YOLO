@@ -13,7 +13,7 @@
 Dense small object detection in drone aerial images faces multiple challenges such as weak features, large scale variations, complex backgrounds, and easy loss of details. This paper proposes **ACME-YOLO** (Adaptive Upsampling, Channel-Context Residual, and Multi-scale Enhancement YOLO), which systematically optimizes critical bottlenecks in the detection pipeline.
 
 **Three core modules:**
-- **CCIRES**: Channel-Context Residual Enhancement Module
+- **CCRE**: Channel-Context Residual Enhancement Module
 - **MultiScaleFusion**: Multi-Scale Fusion Module  
 - **AdaptiveUpSample**: Adaptive UpSample Module
 
@@ -29,7 +29,7 @@ On the VisDrone2019 validation set, ACME-YOLO improves mAP50 by **5.8%** compare
 ## 🏗️ Architecture
 
 ACME-YOLO makes targeted improvements based on YOLOv10:
-1. **Backbone Network**: CCIRES replaces Conv+C2f at P2 and P3 stages; MultiScaleFusion replaces SPPF
+1. **Backbone Network**: CCRE replaces Conv+C2f at P2 and P3 stages; MultiScaleFusion replaces SPPF
 2. **Feature Fusion Network**: AdaptiveUpSample replaces fixed upsampling
 3. **Global Enhancement**: C2f_iAFF replaces standard C2f throughout the network
 
@@ -54,7 +54,7 @@ Learns dynamic sampling positions to preserve spatial detail information for sma
   </div>
 </div>
 
-### 2. CCIRES Module
+### 2. CCRE Module
 Integrates iAFF attention mechanisms and learnable scaling factors to enhance small object feature representations and suppress background noise.
 
 <div align="center">
@@ -63,7 +63,7 @@ Integrates iAFF attention mechanisms and learnable scaling factors to enhance sm
       <td align="center" valign="top" style="padding: 0 15px;">
         <img src="images/ConvC2fAttnBoost.png" alt="CCIRES Module" height="320"/>
         <br/>
-        <em><strong>Structure of the CCIRES module</strong></em>
+        <em><strong>Structure of the CCRE module</strong></em>
       </td>
       <td align="center" valign="top" style="padding: 0 15px;">
         <img src="images/iAFF.png" alt="iAFF Module" height="320"/>
@@ -92,7 +92,7 @@ Uses parallel multi-branch structures to avoid feature degradation caused by ser
 
 **Table 1: YOLOv10n Ablation Study.**
 
-| AUpS | CCIRES | MSF | P | R | mAP@50 | mAP@50:95 | Params/M | GFLOPs |
+| AUpS | CCRE | MSF | P | R | mAP@50 | mAP@50:95 | Params/M | GFLOPs |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 | ✗ | ✗ | ✗ | 0.445 | 0.322 | 0.328 | 0.191 | 2.710 | 8.4 |
 | ✓ | ✗ | ✗ | 0.443 | 0.335 | 0.335 | 0.197 | 2.788 | 8.8 |
