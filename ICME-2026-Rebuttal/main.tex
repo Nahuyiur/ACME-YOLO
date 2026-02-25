@@ -1,177 +1,228 @@
 \documentclass[10pt,twocolumn,letterpaper]{article}
 \usepackage[rebuttal]{cvpr}
 
-% Include other packages here, before hyperref.
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{booktabs}
-\usepackage{xcolor}
-\usepackage{colortbl}
+\usepackage[table]{xcolor}
 \usepackage{multirow}
-
-\usepackage{lipsum} % Just for generating dummy text, can be removed
-\usepackage{blindtext}
-
+\usepackage{array}
+\usepackage{pgf}
+\usepackage{microtype}
 \usepackage[labelsep=period]{caption}
 \captionsetup{font=small}
-\captionsetup[table]{aboveskip=0pt}
-\captionsetup[table]{belowskip=0pt}
-\captionsetup[figure]{aboveskip=2pt}
-\captionsetup[figure]{belowskip=0pt}
+\captionsetup[table]{aboveskip=0pt, belowskip=0pt}
+\captionsetup[figure]{aboveskip=2pt, belowskip=0pt}
 
-
-% If you comment hyperref and then uncomment it, you should delete
-% egpaper.aux before re-running latex.  (Or just hit 'q' on the first latex
-% run, let it finish, and you should be clear).
 \usepackage[pagebackref,breaklinks,colorlinks,bookmarks=false]{hyperref}
-
-% Support for easy cross-referencing
 \usepackage[capitalize]{cleveref}
 \crefname{section}{Sec.}{Secs.}
 \Crefname{section}{Section}{Sections}
 \Crefname{table}{Table}{Tables}
 \crefname{table}{Tab.}{Tabs.}
 
-\newcommand{\toreviewer}[1]{\vspace{0.0em}\noindent \textcolor{blue}{\textbf{#1 \hspace{0.2em}}}}
-\newcommand{\issue}[1]{\vspace{0.1em}\noindent \textcolor{blue}{\textbf{#1 \hspace{0.2em}}}}
-% If you wish to avoid re-using figure, table, and equation numbers from
-% the main paper, please uncomment the following and change the numbers
-% appropriately.
-%\setcounter{figure}{2}
-%\setcounter{table}{1}
-%\setcounter{equation}{2}
-
-% If you wish to avoid re-using reference numbers from the main paper,
-% please uncomment the following and change the counter for `enumiv' to
-% the number of references you have in the main paper (here, 6).
-%\let\oldthebibliography=\thebibliography
-%\let\oldendthebibliography=\endthebibliography
-%\renewenvironment{thebibliography}[1]{%
-%     \oldthebibliography{#1}%
-%     \setcounter{enumiv}{6}%
-%}{\oldendthebibliography}
+% 表格命令
+\newcommand{\mapcellS}[2]{\fontsize{2.2pt}{3pt}\selectfont#1\if\relax\detokenize{#2}\relax\else\makebox[1.2em][l]{\hspace{0.12em}\raisebox{-0.15ex}{\fontsize{1.5pt}{1.8pt}\selectfont\textcolor{black}{(}\fontsize{1.5pt}{1.8pt}\selectfont\textcolor{red}{+#2}\textcolor{black}{)}}}\fi}
+\newcommand{\effcell}[3]{\fontsize{2.2pt}{3pt}\selectfont#2\raisebox{-0.15ex}{\fontsize{1.5pt}{1.8pt}\selectfont\textcolor{black}{(}\scalebox{0.55}{\textcolor{green}{$\downarrow$}}\fontsize{1.5pt}{1.8pt}\selectfont\textcolor{green}{#3\%}\fontsize{1.5pt}{1.8pt}\selectfont\textcolor{black}{)}}}
 
 
-% Variables
-%%%%%%%%% PAPER ID  - PLEASE UPDATE
-\def\PaperID{1862} % *** Enter the ICME Paper ID here
+\newcommand{\fpscell}[1]{\fontsize{4pt}{5pt}\selectfont#1}
+
+\definecolor{impBest}{HTML}{FFE0C2}
+\definecolor{impSecond}{HTML}{FFEDDA}
+\definecolor{impThird}{HTML}{FFF6EC}
+\definecolor{impBase}{HTML}{FFA500}
+\colorlet{impStep1}{impBase!24!white}
+\colorlet{impStep2}{impBase!40!white}
+\colorlet{impStep3}{impBase!56!white}
+\colorlet{impStep4}{impBase!72!white}
+\colorlet{impStep5}{impBase!86!white}
+\colorlet{impStep6}{impBase!96!white}
+
+\newcommand{\applyimpcolor}[1]{%
+\ifcase#1\relax
+\or\cellcolor{impStep1}\or\cellcolor{impStep2}\or\cellcolor{impStep3}\or\cellcolor{impStep4}\or\cellcolor{impStep5}\or\cellcolor{impStep6}%
+\else\cellcolor{impStep6}%
+\fi
+}
+
+\newcommand{\mapcellSI}[2]{%
+\if\relax\detokenize{#2}\relax
+  \mapcellS{#1}{#2}%
+\else
+  \ifdim#2pt<0.005pt
+    \textbf{\mapcellS{#1}{#2}}%
+  \else
+    \pgfmathtruncatemacro{\impsteps}{min(6,max(1,floor(#2/0.005)))}%
+    \applyimpcolor{\impsteps}\textbf{\mapcellS{#1}{#2}}%
+  \fi
+\fi
+}
+
+\newcommand{\tidedown}{\raisebox{-0.15ex}{\scalebox{0.46}{\textcolor{black}{(}\textcolor{green}{$\downarrow$}\textcolor{black}{)}}}}
+\newcommand{\tideupAB}[2]{\raisebox{-0.15ex}{\fontsize{2pt}{2.5pt}\selectfont\textcolor{black}{(}\textcolor{red}{+#1/+#2}\textcolor{black}{)}}}
+
+% 定义Reviewer颜色（新增6/7/8/9/10）
+\definecolor{rev6color}{RGB}{153, 102, 0}    % 棕黄色 (Reviewer6)
+\definecolor{rev7color}{RGB}{0, 153, 153}    % 青绿色 (Reviewer7)
+\definecolor{rev8color}{RGB}{0, 153, 0}      % 绿色 (Reviewer8，原3)
+\definecolor{rev9color}{RGB}{128, 128, 128}  % 灰色 (Reviewer9)
+\definecolor{rev10color}{RGB}{102, 0, 204}   % 紫色 (Reviewer10，原5)
+
+\def\PaperID{1862}
 \def\confName{ICME}
 \def\confYear{2026}
 
+% 关键修改：取消浮动体，强制固定位置
+\usepackage{float}  % 引入float包，支持[H]参数
+\restylefloat{table}  % 让table*也支持[H]
+
 \begin{document}
 
-%%%%%%%%% TITLE - PLEASE UPDATE
 \title{ACME-YOLO: An Enhanced Small Object Detection Framework in UAVs}
-
 \maketitle
-
 \thispagestyle{empty}
 \appendix
-
-%%%%%%%%% BODY TEXT - ENTER YOUR RESPONSE BELOW
-We thank all three reviewers for their constructive comments and appreciations of our strengths such as `the propose method is novel' (\textbf{R3}), `the ablation study is convincing' (\textbf{R2}), and `the method is state-of-the-art' (\textbf{R1}), and `the paper is well written' (\textbf{R3}).
-
-
-\begin{table}[t]
-  \caption{Table 1.}
-  \label{tab:table}
+% ==============================
+% 表1：单栏，强制第一页（核心修改：改为单栏+适配宽度）
+% ==============================
+\begin{table}[H]
+  \caption{\textbf{Across-architecture study on VisDrone2019, UAVDT, TinyPerson, and DOTAv1.} Superscript \textsuperscript{\tiny +} denotes modified versions. Progressively deeper colors highlight improvements ($\Delta\geq0.005$), indicating larger gains over the unenhanced architecture.}
+  \label{tab:across_arch}
   \centering
-  \setlength\tabcolsep{1.5pt}
-  \renewcommand{\arraystretch}{1.15}
-  \resizebox{\columnwidth}{!}{%
-  \fontsize{6.5pt}{8pt}\selectfont
-    \begin{tabular}{@{}l
-      >{\centering\arraybackslash}p{0.7cm}
-      >{\centering\arraybackslash}p{0.7cm}
-      >{\centering\arraybackslash}p{0.55cm}
-      >{\centering\arraybackslash}p{0.55cm}
-      >{\centering\arraybackslash}p{0.7cm}
-      >{\centering\arraybackslash}p{0.7cm}
-      >{\centering\arraybackslash}p{0.55cm}
-      >{\centering\arraybackslash}p{0.4cm}
-      >{\centering\arraybackslash}p{0.7cm}
-      >{\centering\arraybackslash}p{0.7cm}
-      >{\centering\arraybackslash}p{0.35cm}
-      >{\centering\arraybackslash}p{0.6cm}@{}}
-      \toprule
-      \multirow{3}{*}{\textbf{Architecture}}
-      & \multicolumn{7}{c}{\textbf{Performance/mAP50}}
-      & \multicolumn{5}{c}{\textbf{Efficiency}} \\
-      \cmidrule(lr){2-8} \cmidrule(l){9-13}
-      & \multicolumn{2}{c}{\textbf{VisDrone2019}}
-      & \multicolumn{2}{c}{\textbf{UAVDT}}
-      & \multicolumn{2}{c}{\textbf{TinyPerson}}
-      & \textbf{DOTAv1}
-      & \multirow{2}{*}{\textbf{Input}}
-      & \multirow{2}{*}{\textbf{Params/M}}
-      & \multirow{2}{*}{\textbf{GFLOPs}}
-      & \multirow{2}{*}{\textbf{FPS}}
-      & \multirow{2}{*}{\textbf{Size/MB}} \\
-      \cmidrule(lr){2-3} \cmidrule(lr){4-5} \cmidrule(lr){6-7} \cmidrule(lr){8-8}
-      & \textbf{Val} & \textbf{Test}
-      & \textbf{Val} & \textbf{Test}
-      & \textbf{Val} & \textbf{Test}
-      & \textbf{Val}
-      & & & & & \\
-      \midrule
-      \textbf{YOLOv11-S}
-      & 0.384 & 0.311
-      & 0.875 & 0.910
-      & 0.264 & 0.222
-      & 0.447
-      & 640 & 9.4 & 21.6 & 176 & 18.3 \\
-      \textbf{DERNet-S}
-      & \cellcolor{orange!25}\textbf{0.398}{\fontsize{4pt}{4.5pt}\selectfont(\textbf{$\uparrow$0.014})}
-      & \cellcolor{orange!25}\textbf{0.316}{\fontsize{4pt}{4.5pt}\selectfont(\textbf{$\uparrow$0.005})}
-      & 0.844 & 0.909
-      & \cellcolor{orange!25}\textbf{0.298}{\fontsize{4pt}{4.5pt}\selectfont(\textbf{$\uparrow$0.034})}
-      & \cellcolor{orange!25}\textbf{0.252}{\fontsize{4pt}{4.5pt}\selectfont(\textbf{$\uparrow$0.030})}
-      & \cellcolor{orange!25}0.420
-      & 640
-      & \cellcolor{green!25}1.3{\fontsize{4pt}{4.5pt}\selectfont($\downarrow$\textbf{86.2\%})}
-      & \cellcolor{green!25}13.3{\fontsize{4pt}{4.5pt}\selectfont($\downarrow$\textbf{38.4\%})}
-      & 162
-      & \cellcolor{green!25}3.4{\fontsize{4pt}{4.5pt}\selectfont($\downarrow$\textbf{81.4\%})} \\
-      \bottomrule
-    \end{tabular}%
-  }
-  \vspace{-1em}
+  \setlength\tabcolsep{0.03pt}  % 最小列间距
+  \renewcommand{\arraystretch}{0.7}  % 紧凑行间距
+  \fontsize{2.2pt}{3pt}\selectfont  % 全局统一极小字体（所有内容继承）
+  \resizebox{\columnwidth}{!}{
+  % 第一列加宽到8em，所有数据列强制继承全局字体
+  \begin{tabular}{@{}>{\raggedright\arraybackslash}p{8em} @{}*{7}{>{\fontsize{2.2pt}{3pt}\selectfont}p{0.4cm}}>{\fontsize{2.2pt}{3pt}\selectfont}p{0.4cm}>{\fontsize{2.2pt}{3pt}\selectfont}p{0.4cm}>{\fontsize{2.2pt}{3pt}\selectfont}p{0.4cm}>{\fontsize{2.2pt}{3pt}\selectfont}p{0.18cm}>{\fontsize{2.2pt}{3pt}\selectfont}p{0.4cm}@{}}  
+  \toprule
+  \textbf{Architecture}
+  & \multicolumn{7}{c}{\tiny\textbf{Performance/mAP50}}
+  & \multicolumn{5}{c}{\centering\tiny\textbf{Efficiency}} \\[-2.2pt]
+  \cmidrule[0.5pt](l{-0.3em}r{0.5em}){2-8}\cmidrule[0.5pt](l{-0.3em}r{0.5em}){10-13}  
+  & \multicolumn{2}{l}{\textbf{VisDrone2019}}
+  & \multicolumn{2}{l}{\textbf{UAVDT}}
+  & \multicolumn{2}{l}{\textbf{TinyPerson}}
+  & \multicolumn{1}{l}{\textbf{DOTAv1}}
+  & & & & & \\[-2.2pt]
+  \cmidrule[0.5pt](l{-0.3em}r{0.5em}){2-3}\cmidrule[0.5pt](l{-0.3em}r{0.5em}){4-5}\cmidrule[0.5pt](l{-0.3em}r{0.5em}){6-7}\cmidrule[0.5pt](l{-0.3em}r{0.5em}){8-8}
+  & \cellcolor{blue!5}{\textbf{Val}}
+  & \cellcolor{blue!5}{\textbf{Test}}
+  & \cellcolor{blue!5}{\textbf{Val}}
+  & \cellcolor{blue!5}{\textbf{Test}}
+  & \cellcolor{blue!5}{\textbf{Val}}
+  & \cellcolor{blue!5}{\textbf{Test}}
+  & \cellcolor{blue!5}{\textbf{Val}}
+  & \cellcolor{blue!5}{\textbf{Input}}
+  & \cellcolor{blue!5}{\textbf{Params/M}}
+  & \cellcolor{blue!5}{\textbf{GFLOPs}}
+  & \cellcolor{blue!5}{\textbf{FPS}}
+  & \cellcolor{blue!5}{\textbf{Size/MB}}\\
+  \midrule
+  % 保留所有自定义命令，且命令内文字继承全局小字体
+  \textbf{YOLOv10-N}
+  & \mapcellSI{0.328}{} & \mapcellSI{0.261}{} & \mapcellSI{0.845}{} & \mapcellSI{0.876}{} & \mapcellSI{0.225}{} & \mapcellSI{0.197}{} & \mapcellSI{0.422}{}
+  & 640 & 2.7 & 8.4 & 187 & 5.9 \\
+  \textbf{ACME-YOLO-N}
+  & \mapcellSI{0.347}{0.019} & \mapcellSI{0.285}{0.024} & \mapcellSI{0.858}{0.013} & \mapcellSI{0.890}{0.014} & \mapcellSI{0.243}{0.018} & \mapcellSI{0.212}{0.015} & \mapcellSI{0.441}{0.019}
+  & 640 & \effcell{2.7}{3.0}{+11.1} & \effcell{8.4}{8.7}{+3.6} & \fpscell{182} & \effcell{5.9}{6.3}{+6.8} \\
+  \bottomrule
+  \end{tabular}}
+  \vspace{-0.2cm}
 \end{table}
 
-\issue{Novelty ($@$R1 and R2)} 
-\lipsum[1]
+% ==============================
+% 表2：单栏，强制第一页（字体缩小）
+% ==============================
+\begin{table}[H]  % [H]强制固定位置
+  \caption{\textbf{TIDE error decomposition.} Values are reported for YOLOv10-N and ACME-YOLO-N.}
+  \label{tab:tide_nano}
+  \centering
+  \setlength\tabcolsep{1.8pt}
+  \renewcommand{\arraystretch}{1.18}
+  \fontsize{4pt}{5pt}\selectfont  % 基础字体从5pt→4pt
+  \resizebox{\columnwidth}{!}{
+    \begin{tabular}{@{}>{\raggedright\arraybackslash}p{1.2cm} *{5}{>{\raggedright\arraybackslash}p{0.5cm}} >{\raggedright\arraybackslash}p{0.95cm}@{}}
+      \toprule
+      {\fontsize{4pt}{5pt}\selectfont\textbf{Architecture}}  % 表头字体同步为4pt
+      & \cellcolor{blue!5}{\fontsize{4.5pt}{5.5pt}\selectfont\textbf{Loc}}  % 列标题从5.5pt→4.5pt
+      & \cellcolor{blue!5}{\fontsize{4.5pt}{5.5pt}\selectfont\textbf{Miss}}
+      & \cellcolor{blue!5}{\fontsize{4.5pt}{5.5pt}\selectfont\textbf{Both}}
+      & \cellcolor{blue!5}{\fontsize{4.5pt}{5.5pt}\selectfont\textbf{FalsePos}}
+      & \cellcolor{blue!5}{\fontsize{4.5pt}{5.5pt}\selectfont\textbf{FalseNeg}}
+      & \cellcolor{blue!5}{\fontsize{4.5pt}{5.5pt}\selectfont\textbf{APs}}\\
+      \midrule
+      \noalign{\vspace{-1.5ex}}
+      {\fontsize{4pt}{5pt}\selectfont\textbf{YOLOv10-N}}  % 内容行字体4pt
+      & 3.54 & 6.44 & 0.25 & 13.21 & 26.46 & 7.69 \\
+      {\fontsize{4pt}{5pt}\selectfont\textbf{ACME-YOLO-N}}  % 内容行字体4pt
+      & 3.30\tidedown & 6.15\tidedown & 0.23\tidedown & 13.08\tidedown & 24.37\tidedown & 8.84\tideupAB{1.15}{} \\
+      \noalign{\vspace{-1.5ex}}
+      \bottomrule
+    \end{tabular}}
+  \vspace{-0.2cm}
+\end{table}
+% ==============================
+% 回复正文
+% ==============================
 
-\issue{Comparison with existing methods ($@$R1)} 
-\lipsum[2]
+\noindent\textcolor{blue}{\textbf{$\triangleright$ ALL Reviewers:}}
 
-\issue{Missing details for the dataset ($@$R2)} 
-\lipsum[3]
+We appreciate all reviewers for their valuable feedback and constructive suggestions. We have carefully addressed all concerns and revised the manuscript accordingly.
 
-\issue{Missing details for the method ($@$R2)} 
-\lipsum[4]
+\vspace{0.5em}
 
-\issue{Missing references ($@$R2)} 
-We will include them. 
+% ----------------------------
+% Reviewer 6 (空白占位)
+% ----------------------------
+\noindent\textcolor{rev6color}{\textbf{$\triangleright$ Reviewer\#6.}}
 
-\begin{figure}[tb] \centering
-    \includegraphics[width=0.48\textwidth,height=0.20\textwidth]{example-image}
-    \caption{Image 1.} \label{fig:img1}
-    \vspace{-1em}
-\end{figure}
+\vspace{0.5em}
 
-\issue{Failure case ($@$R3)} 
-\lipsum[5]
+% ----------------------------
+% Reviewer 7 (空白占位)
+% ----------------------------
+\noindent\textcolor{rev7color}{\textbf{$\triangleright$ Reviewer\#7.}}
 
-\issue{Visualization of the method ($@$R3)} 
-\lipsum[6]
+\vspace{0.5em}
 
-\issue{Evaluation details ($@$R3)}
-Sed commodo posuere pede. Mauris ut est. Ut quis purus. Sed ac odio. Sed vehicula. hendrerit sem. Duis non odio. Morbi ut dui. Sed accumsan. risus eget odio. In hac habitasse platea dictumst. Pellen-esque non elit. Fusce sed justo eu urna porta tincidunt Mauris felis odio, sollicitudin sed, volutpat a, ornare ac.
+% ----------------------------
+% Reviewer 8 (原Reviewer3，精简问题)
+% ----------------------------
+\noindent\textcolor{rev8color}{\textbf{$\triangleright$ Reviewer\#8.}}
 
-\issue{Typos ($@$R3)} 
-We will fix them in the revision.
+\textbf{Q1:} ADRF-Fusion's global weights make "Adaptive" questionable.\\
+A: The “Adaptive” refers to data-driven, task-adaptive weights learned end-to-end via Softmax, rather than manually fixed fusion weights. Although global, these weights automatically adapt to multi-scale feature importance for small object detection.
+
+\textbf{Q2:} Provide FPS/latency and ONNX/TensorRT deployment results.\\
+A: As shown in \cref{tab:across_arch}, we have reported FPS at 640×640, batch-size 1 on an A100 GPU. We have not performed official ONNX/TensorRT deployment yet, but will add standard deployment evaluation in the revised version.
+
+\textbf{Q3:} Lack AP\_small metrics for small object detection.\\
+A: As presented in \cref{tab:tide_nano}, we have provided APs (small-object AP) to evaluate small object detection performance.
+
+\textbf{Q4:} Are YOLO variants trained with the same settings?\\
+A: Thank you for the careful comment. All compared YOLO variants are trained with the same training strategy, input size, epochs, and augmentations. We will add a clear clarification in the revised manuscript.
+
+\textbf{Q5:} Need FPS/latency to justify accuracy-efficiency trade-off.\\
+A: As shown in \cref{tab:across_arch}, we have provided FPS measurements on an A100 GPU, which together with params and GFLOPs fully demonstrate the accuracy-efficiency trade-off.
+
+\vspace{0.5em}
+
+% ----------------------------
+% Reviewer 9 (空白占位)
+% ----------------------------
+\noindent\textcolor{rev9color}{\textbf{$\triangleright$ Reviewer\#9.}}
+
+\vspace{0.5em}
+
+% ----------------------------
+% Reviewer 10 (原Reviewer5，精简问题)
+% ----------------------------
+\noindent\textcolor{rev10color}{\textbf{$\triangleright$ Reviewer\#10.}}
+
+\textbf{Q1:} Need FPS/latency to justify accuracy-efficiency trade-off with increased params/GFLOPs.\\
+A: As shown in \cref{tab:across_arch}, we have provided FPS measurements on an A100 GPU, which together with params and GFLOPs fully demonstrate the accuracy-efficiency trade-off of our method.
 
 \end{document}
-
-
