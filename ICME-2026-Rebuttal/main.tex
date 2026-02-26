@@ -23,7 +23,7 @@
 \crefname{table}{Tab.}{Tabs.}
 
 % 表格命令
-\newcommand{\mapcellS}[2]{\fontsize{2.2pt}{3pt}\selectfont#1\if\relax\detokenize{#2}\relax\else\makebox[1.2em][l]{\hspace{0.12em}\raisebox{-0.15ex}{\fontsize{1.5pt}{1.8pt}\selectfont\textcolor{black}{(}\fontsize{1.5pt}{1.8pt}\selectfont\textcolor{red}{+#2}\textcolor{black}{)}}}\fi}
+\newcommand{\mapcellS}[2]{\fontsize{2.6pt}{3.2pt}\selectfont#1\if\relax\detokenize{#2}\relax\else\makebox[1.2em][l]{\hspace{0.12em}\raisebox{-0.15ex}{\fontsize{1.5pt}{1.8pt}\selectfont\textcolor{black}{(}\fontsize{1.5pt}{1.8pt}\selectfont\textcolor{red}{+#2}\textcolor{black}{)}}}\fi}
 \newcommand{\effcell}[3]{\fontsize{2.2pt}{3pt}\selectfont#2\raisebox{-0.15ex}{\fontsize{1.5pt}{1.8pt}\selectfont\textcolor{black}{(}\scalebox{0.55}{\textcolor{green}{$\downarrow$}}\fontsize{1.5pt}{1.8pt}\selectfont\textcolor{green}{#3\%}\fontsize{1.5pt}{1.8pt}\selectfont\textcolor{black}{)}}}
 
 \newcommand{\fpscell}[1]{\fontsize{2.2pt}{3pt}\selectfont#1}
@@ -87,36 +87,26 @@
 % 表1
 % ==============================
 \begin{table}[t]
-  \caption{\textbf{Across-architecture study on VisDrone2019, UAVDT, TinyPerson, and DOTAv1.} Superscript \textsuperscript{\tiny +} denotes modified versions. Progressively deeper colors highlight improvements ($\Delta\geq0.005$), indicating larger gains over the unenhanced architecture.}
+  \caption{\textbf{Comparison of YOLOv10-N and ACME-YOLO on VisDrone2019, UAVDT, TinyPerson, and DOTAv1 with efficiency.} Progressively deeper colors highlight improvements ($\Delta\geq0.005\ mAP_{50}$).}
   \label{tab:across_arch}
   \centering
-  % 适度调大列间距，避免内容挤压横线（原0.03pt过小，易遮挡）
   \setlength\tabcolsep{0.5pt}
-  % 行高系数微调，既紧凑又不遮挡横线（原0.7→0.75）
-  \renewcommand{\arraystretch}{0.75}
-  % 字体行间距适配，减少垂直空白（原3pt→2.8pt）
+  \renewcommand{\arraystretch}{0.85}
   \fontsize{2.2pt}{2.8pt}\selectfont
+  
+  % Performance Table
   \resizebox{\columnwidth}{!}{
   \begin{tabular}{@{}>{\raggedright\arraybackslash}p{8em} 
-                  @{}*{7}{>{\fontsize{2.2pt}{2.8pt}\selectfont}p{0.4cm}}
-                  >{\fontsize{2.2pt}{2.8pt}\selectfont}p{0.4cm}
-                  >{\fontsize{2.2pt}{2.8pt}\selectfont}p{0.4cm}
-                  >{\fontsize{2.2pt}{2.8pt}\selectfont}p{0.4cm}
-                  >{\fontsize{2.2pt}{2.8pt}\selectfont}p{0.18cm}
-                  >{\fontsize{2.2pt}{2.8pt}\selectfont}p{0.4cm}@{}}
-  \toprule[0.5pt]  % 明确横线粗细，避免过细被遮挡
-  \textbf{Architecture}
-  & \multicolumn{7}{c}{\fontsize{2.2pt}{2.8pt}\selectfont\textbf{Performance/mAP50}}
-  & \multicolumn{5}{c}{\centering\fontsize{2.2pt}{2.8pt}\selectfont\textbf{Efficiency}} \\
-  % 用\noalign缩小cmidrule上方间距，替代原[-2.2pt]（更稳定）
+                  @{}*{7}{>{\fontsize{2.2pt}{2.8pt}\selectfont}p{0.4cm}}@{}}
+  \toprule[0.5pt]
+  \fontsize{2.6pt}{3.2pt}\selectfont\textbf{Architecture}
+  & \multicolumn{7}{c}{\fontsize{2.6pt}{3.2pt}\selectfont\textbf{Performance/mAP50}} \\
   \noalign{\vspace{-2pt}}
-  \cmidrule[0.5pt](l{-0.3em}r{0.5em}){2-8}\cmidrule[0.5pt](l{-0.3em}r{0.5em}){10-13}
+  \cmidrule[0.5pt](l{-0.3em}r{0.5em}){2-8}
   & \multicolumn{2}{l}{\fontsize{2.2pt}{2.8pt}\selectfont\textbf{VisDrone2019}}
   & \multicolumn{2}{l}{\fontsize{2.2pt}{2.8pt}\selectfont\textbf{UAVDT}}
   & \multicolumn{2}{l}{\fontsize{2.2pt}{2.8pt}\selectfont\textbf{TinyPerson}}
-  & \multicolumn{1}{l}{\fontsize{2.2pt}{2.8pt}\selectfont\textbf{DOTAv1}}
-  & & & & & \\
-  % 用\noalign缩小cmidrule上方间距，替代原[-2.2pt]
+  & \multicolumn{1}{l}{\fontsize{2.2pt}{2.8pt}\selectfont\textbf{DOTAv1}} \\
   \noalign{\vspace{-2pt}}
   \cmidrule[0.5pt](l{-0.3em}r{0.5em}){2-3}\cmidrule[0.5pt](l{-0.3em}r{0.5em}){4-5}\cmidrule[0.5pt](l{-0.3em}r{0.5em}){6-7}\cmidrule[0.5pt](l{-0.3em}r{0.5em}){8-8}
   & \cellcolor{blue!5}{\textbf{Val}}
@@ -125,64 +115,76 @@
   & \cellcolor{blue!5}{\textbf{Test}}
   & \cellcolor{blue!5}{\textbf{Val}}
   & \cellcolor{blue!5}{\textbf{Test}}
-  & \cellcolor{blue!5}{\textbf{Val}}
+  & \cellcolor{blue!5}{\textbf{Val}} \\
+  \midrule[0.5pt]
+  \noalign{\vspace{-2pt}}
+  \fontsize{2.4pt}{3.2pt}\selectfont\textbf{YOLOv10-N}
+  & \mapcellSI{0.328}{} & \mapcellSI{0.261}{} & \mapcellSI{0.845}{} & \mapcellSI{0.876}{} & \mapcellSI{0.225}{} & \mapcellSI{0.197}{} & \mapcellSI{0.422}{} \\
+  \fontsize{2.4pt}{3.2pt}\selectfont\textbf{ACME-YOLO}
+  & \mapcellSI{0.347}{0.019} & \mapcellSI{0.285}{0.024} & \mapcellSI{0.858}{0.013} & \mapcellSI{0.890}{0.014} & \mapcellSI{0.243}{0.018} & \mapcellSI{0.212}{0.015} & \mapcellSI{0.441}{0.019} \\
+  \noalign{\vspace{-2pt}}
+  \bottomrule[0.5pt]
+  \end{tabular}}
+  
+  \vspace{0.05cm}
+  
+  % Efficiency Table
+  \resizebox{\columnwidth}{!}{
+  \begin{tabular}{@{}>{\raggedright\arraybackslash}p{8em} 
+                  >{\fontsize{2.6pt}{3.2pt}\selectfont}p{0.6cm}
+                  >{\fontsize{2.6pt}{3.2pt}\selectfont}p{0.6cm}
+                  >{\fontsize{2.6pt}{3.2pt}\selectfont}p{0.6cm}
+                  >{\fontsize{2.6pt}{3.2pt}\selectfont}p{0.4cm}
+                  >{\fontsize{2.6pt}{3.2pt}\selectfont}p{0.6cm}@{}}
+  \toprule[0.5pt]
+  \fontsize{2.6pt}{3.2pt}\selectfont\textbf{Architecture}
+  & \multicolumn{5}{c}{\centering\fontsize{2.6pt}{3.2pt}\selectfont\textbf{Efficiency}} \\
+  \noalign{\vspace{-2pt}}
+  \cmidrule[0.5pt](l{-0.3em}r{0.5em}){2-6}
   & \cellcolor{blue!5}{\textbf{Input}}
   & \cellcolor{blue!5}{\textbf{Params/M}}
   & \cellcolor{blue!5}{\textbf{GFLOPs}}
   & \cellcolor{blue!5}{\textbf{FPS}}
   & \cellcolor{blue!5}{\textbf{Size/MB}}\\
-  % 核心：缩小midrule与数据的间距，且不遮挡横线
   \midrule[0.5pt]
   \noalign{\vspace{-2pt}}
-  \textbf{YOLOv10-N}
-  & \mapcellSI{0.328}{} & \mapcellSI{0.261}{} & \mapcellSI{0.845}{} & \mapcellSI{0.876}{} & \mapcellSI{0.225}{} & \mapcellSI{0.197}{} & \mapcellSI{0.422}{}
+  \fontsize{2.6pt}{3.2pt}\selectfont\textbf{YOLOv10-N}
   & 640 & 2.7 & 8.4 & 187 & 5.9 \\
-  \textbf{ACME-YOLO-N}
-  & \mapcellSI{0.347}{0.019} & \mapcellSI{0.285}{0.024} & \mapcellSI{0.858}{0.013} & \mapcellSI{0.890}{0.014} & \mapcellSI{0.243}{0.018} & \mapcellSI{0.212}{0.015} & \mapcellSI{0.441}{0.019}
-  & 640 & \effcell{2.7}{3.0}{+11.1} & \effcell{8.4}{8.7}{+3.6} & \fpscell{182} & \effcell{5.9}{6.3}{+6.8} \\
-  % 核心：缩小bottomrule与数据的间距，且不遮挡横线
+  \fontsize{2.6pt}{3.2pt}\selectfont\textbf{ACME-YOLO}
+  & 640 & 3.0 & 8.7 & 182 & 6.3 \\
   \noalign{\vspace{-2pt}}
   \bottomrule[0.5pt]
   \end{tabular}}
   \vspace{-0.2cm}
 \end{table}
 
-% ==============================
-% 表2
-% ==============================
 
-
+\vspace{-5.5em}
 % ==============================
 % 回复正文（所有 Q/A 完全左对齐，无缩进）
 % ==============================
 
-\noindent\textcolor{blue}{\textbf{$\triangleright$ ALL Reviewers:}}
+\noindent\textcolor{blue}{\textbf{$\triangleright$ To All Reviewers / Area Chair:}}
 
-\noindent We appreciate all reviewers for their valuable feedback and constructive suggestions. We have carefully addressed all concerns and revised the manuscript accordingly.
+\noindent We sincerely thank all reviewers for their constructive feedback and have carefully revised the manuscript accordingly.
 
-\noindent\textbf{Q1:} Concern on Incremental Novelty / Engineering Combination\\
-\noindent\textbf{A:} We agree that attention, multi-scale dilation, and upsampling have been explored before. Our contribution is not on novel basic operators, but a \textbf{constraint-aware structural co-design} tailored for lightweight UAV small-object detection.
+\noindent\textbf{Q1: Concern regarding Incremental Novelty / Engineering Combination} \\
 
-\noindent CCRE integrates iAFF into YOLOv10’s C2f backbone with a dual-path residual structure and learnable scaling factor $\alpha$, enhancing shallow P2/P3 discriminability under tight parameter constraints. To our knowledge, such a lightweight residual-attention design for UAV small-object detection has not been studied.
+\noindent\textbf{A:} We respectfully clarify that ACME-YOLO is not a mere combination of existing techniques. While basic operators like attention are established, our core contribution is a \textbf{constraint-aware structural co-design} tailored for the extreme accuracy-efficiency trade-off in UAV detection. 
 
-\noindent ADRF-Fusion uses parallel depthwise dilated branches with Softmax-normalized weights for adaptive multi-scale fusion with negligible extra complexity, avoiding heavy fusion modules.
+\noindent Instead of naively stacking heavy modules, we resolve mutually coupled bottlenecks via a tightly optimized \textbf{enhancement--fusion--restoration} pipeline:
+\noindent Specifically, \textbf{CCRE} embeds iAFF into a dual-path residual structure with a learnable scaling factor $\alpha$, enhancing shallow-layer discriminability for minute objects while strictly bounding parameter bloat. Simultaneously, \textbf{ADRF-Fusion} abandons expensive multi-scale modules in favor of parallel depthwise dilated convolutions with Softmax weighting, achieving adaptive receptive field fusion with near-zero overhead. As proven in ablation studies, rather than being isolated add-ons, these components form a highly synergistic closed-loop.
 
-\noindent Notably, these modules form a unified \textbf{enhancement–fusion–restoration pipeline} that addresses mutually coupled bottlenecks, rather than being independently plugged in. Ablation results verify their complementary effects.
-
-\noindent Thus, our work represents a \textbf{structured, lightweight, synergistic redesign} under practical deployment constraints.
+\noindent Therefore, our novelty is not claimed at the basic operator level, but rather in establishing a \textbf{lightweight architectural paradigm} that successfully bridges the gap between high-precision small-object feature recovery and stringent edge-deployment efficiency.
 
 \vspace{0.5em}
-
 % ----------------------------
 % Reviewer 6
 % ----------------------------
 \noindent\textcolor{rev6color}{\textbf{$\triangleright$ Reviewer\#6.}}
 
-\noindent\textbf{Q1:} Concern on Limited Performance Gain and Robustness\\
-\noindent\textbf{A:} Although the absolute gain (+1.9 mAP50 on VisDrone2019) is moderate, it is achieved with only ~0.3M parameter increase and negligible FLOPs growth, representing a favorable accuracy–efficiency trade-off for deployment scenarios. Improvements are consistent across VisDrone and UAVDT (+1.53 mAP50), suggesting cross-dataset generalization rather than dataset-specific tuning.
-
-\noindent\textbf{Q2:} Concern on Real-Time Claim Without FPS / Edge Hardware Evidence\\
-\noindent\textbf{A:} We acknowledge that Params/FLOPs alone are insufficient to support real-time claims. We will provide explicit end-to-end FPS comparisons to ensure all deployment claims are strictly empirically supported.
+\noindent\textbf{Q1: Concern on Limited Performance Gain and Robustness}\\
+\noindent\textbf{A:} To demonstrate robustness and generalization, we have expanded our evaluation to two additional challenging datasets (TinyPerson and DOTAv1) in \cref{tab:across_arch}, where ACME-YOLO consistently outperforms the baseline.
 
 \vspace{0.5em}
 
@@ -190,60 +192,60 @@
 % Reviewer 7
 % ----------------------------
 \noindent\textcolor{rev7color}{\textbf{$\triangleright$ Reviewer\#7.}}
-\noindent (All comments from Reviewer 7 have been addressed in the earlier responses.)
+\noindent (Addressed in the earlier responses.)
 
 \vspace{0.5em}
 \begin{table}[t]
-  \caption{\textbf{TIDE error decomposition.} Values are reported for YOLOv10-N and ACME-YOLO-N.}
+  \caption{\textbf{TIDE error decomposition with small objects mAP.} Values are reported for YOLOv10-N and ACME-YOLO.}
   \label{tab:tide_nano}
   \centering
   % 1. 适度增大列间距，避免内容挤压横线
-  \setlength\tabcolsep{2pt}
-  % 2. 行高系数调至适中，既紧凑又不遮挡
-  \renewcommand{\arraystretch}{1.1}
-  % 3. 字体行间距与字号匹配，避免垂直挤压
-  \fontsize{4pt}{4.8pt}\selectfont
-  % 移除resizebox的强制拉伸，改用固定宽度更可控（核心解决遮挡）
-  \begin{tabular}{@{}>{\raggedright\arraybackslash}p{1.2cm} 
-                  *{4}{>{\raggedright\arraybackslash}p{0.5cm}}  % 前4列宽度不变
-                  >{\raggedright\arraybackslash}p{0.8cm}       % FalseNeg列调大（0.5→0.8，更宽松）
-                  >{\raggedright\arraybackslash}p{0.95cm}@{}} % APs列宽度不变
-    \toprule[0.6pt]  % 稍加粗横线，避免被背景色/内容遮挡
-    \textbf{Architecture}
-    & \cellcolor{blue!5}{\fontsize{4.5pt}{5pt}\selectfont\textbf{Loc}}
-    & \cellcolor{blue!5}{\fontsize{4.5pt}{5pt}\selectfont\textbf{Miss}}
-    & \cellcolor{blue!5}{\fontsize{4.5pt}{5pt}\selectfont\textbf{Both}}
-    & \cellcolor{blue!5}{\fontsize{4.5pt}{5pt}\selectfont\textbf{FalsePos}}
-    & \cellcolor{blue!5}{\fontsize{4.5pt}{5pt}\selectfont\textbf{FalseNeg}}
-    & \cellcolor{blue!5}{\fontsize{4.5pt}{5pt}\selectfont\textbf{APs}}\\
+  \setlength\tabcolsep{3pt}
+  \renewcommand{\arraystretch}{1.15}
+  \fontsize{6pt}{7pt}\selectfont
+  
+  \resizebox{\columnwidth}{!}{
+  \begin{tabular}{@{}>{\raggedright\arraybackslash}p{2cm} 
+                  *{4}{>{\raggedright\arraybackslash}p{0.8cm}}
+                  >{\raggedright\arraybackslash}p{1cm}
+                  >{\raggedright\arraybackslash}p{1.2cm}@{}}
+    \toprule[1pt]
+    \fontsize{6.5pt}{7.5pt}\selectfont\textbf{Architecture}
+    & \cellcolor{blue!5}{\fontsize{6.5pt}{7.5pt}\selectfont\textbf{Loc}}
+    & \cellcolor{blue!5}{\fontsize{6.5pt}{7.5pt}\selectfont\textbf{Miss}}
+    & \cellcolor{blue!5}{\fontsize{6.5pt}{7.5pt}\selectfont\textbf{Both}}
+    & \cellcolor{blue!5}{\fontsize{6.5pt}{7.5pt}\selectfont\textbf{FalsePos}}
+    & \cellcolor{blue!5}{\fontsize{6.5pt}{7.5pt}\selectfont\textbf{FalseNeg}}
+    & \cellcolor{blue!5}{\fontsize{6.5pt}{7.5pt}\selectfont\textbf{APs}}\\
     % 4. 用\noalign缩小横线与数据的间距（最安全的方式）
-    \midrule[0.6pt]
-    \noalign{\vspace{-1.5pt}}
-    \textbf{YOLOv10-N}
+    \midrule[1pt]
+    \noalign{\vspace{-1pt}}
+    \fontsize{6.8pt}{7.5pt}\selectfont\textbf{YOLOv10-N}
     & 3.54 & 6.44 & 0.25 & 13.21 & 26.46 & 7.69 \\
-    \textbf{ACME-YOLO-N}
-    & 3.30\tidedown & 6.15\tidedown & 0.23\tidedown & 13.08\tidedown & 24.37\tidedown & 8.84\tideupAB{1.15}{} \\
-    \noalign{\vspace{-1.5pt}}
-    \bottomrule[0.6pt]
-  \end{tabular}
+    \fontsize{6.8pt}{7.5pt}\selectfont\textbf{ACME-YOLO}
+    & 3.30\tidedown & 6.15\tidedown & 0.23\tidedown & 13.08\tidedown & 24.37\tidedown & \textbf{8.84}\tideupAB{1.15}{} \\
+    \noalign{\vspace{-1pt}}
+    \bottomrule[1pt]
+  \end{tabular}}
   \vspace{-0.2cm}
 \end{table}
+
 % ----------------------------
 % Reviewer 8
 % ----------------------------
 \noindent\textcolor{rev8color}{\textbf{$\triangleright$ Reviewer\#8.}}
 
-\noindent\textbf{Q1:} Concern on the rationality of "Adaptive" in ADRF-Fusion\\
-\noindent\textbf{A:} The “Adaptive” refers to data-driven, task-adaptive weights learned end-to-end via Softmax, rather than manually fixed fusion weights. Although global, these weights automatically adapt to multi-scale feature importance for small object detection.
+\noindent\textbf{Q1: Concern on the rationality of "Adaptive" in ADRF}\\
+\noindent\textbf{A:} We respectfully clarify that "Adaptive" denotes \textbf{data-driven, task-level adaptation} rather than costly instance-wise gating. During training, the Softmax-normalized weights automatically adapt to the UAV dataset's scale distribution, prioritizing optimal receptive fields for small objects without heavy computational overhead of dynamic attention.
 
-\noindent\textbf{Q2:} Concern on missing FPS/latency and deployment results\\
-\noindent\textbf{A:} As shown in \cref{tab:across_arch}, we have reported FPS at 640×640, batch-size 1 on an A100 GPU. We have not performed official ONNX/TensorRT deployment yet, but will add standard deployment evaluation in the revised version.
+\noindent\textbf{Q2: Concern on missing FPS/latency and deployment results}\\
+\noindent\textbf{A:} The native PyTorch inference speed on an A100 GPU is reported in \cref{tab:across_arch} (182 FPS). We are currently finalizing the TensorRT/ONNX deployment pipelines and will update the comprehensive edge-hardware latency in the final version.
 
-\noindent\textbf{Q3:} Concern on insufficient small-object evaluation metrics\\
-\noindent\textbf{A:} As presented in \cref{tab:tide_nano}, we have provided APs (small-object AP) to evaluate small object detection performance.
+\noindent\textbf{Q3: Concern on insufficient small-object evaluation metrics}\\
+\noindent\textbf{A:} As presented in \cref{tab:tide_nano}, we have provided APs (small-object AP) to evaluate small object detection performance, together with TIDE analysis.
 
-\noindent\textbf{Q4:} Concern on inconsistent training settings among YOLO variants\\
-\noindent\textbf{A:} Thank you for the careful comment. All compared YOLO variants are trained with the same training strategy, input size, epochs, and augmentations. We will add a clear clarification in the revised manuscript.
+\noindent\textbf{Q4: Concern on inconsistent training settings among models}\\
+\noindent\textbf{A:}  All compared variants are trained with the same training strategy, input size, and augmentations till convergence.
 
 \vspace{0.5em}
 
@@ -252,6 +254,14 @@
 % ----------------------------
 \noindent\textcolor{rev9color}{\textbf{$\triangleright$ Reviewer\#9.}}
 
+\noindent\textbf{Q1: Concern on selective metric reporting ($mAP_{50}$ vs. $mAP_{50:95}$)}\\
+\noindent\textbf{A:} We clarify that $mAP_{50}$ is the standard metric for ultra-dense datasets like VisDrone. High IoU thresholds overly penalize inherent bounding-box ambiguities via matching noise rather than true misdetections. Regardless, ACME-YOLO still improves $mAP_{50:95}$, and the newly added $AP_S$ (\cref{tab:tide_nano}) explicitly confirms robust gains on tiny targets.
+
+\noindent\textbf{Q2: Concern on missing deep analysis and failure modes}\\
+\noindent\textbf{A:}  TIDE analysis (\cref{tab:tide_nano}) mathematically details \textit{why} our modules work:
+\textbf{(1) Loc Error} drops, proving AdaptiveUpSample preserves spatial details.
+\textbf{(2) Miss \& FalseNeg Errors} decrease, showing CCRE and LDRF-Fusion effectively extract weak features.
+Consequently, $AP_S$ improves by +1.15, explicitly resolving the targeted UAV bottlenecks.
 \vspace{0.5em}
 
 % ----------------------------
@@ -259,8 +269,6 @@
 % ----------------------------
 \noindent\textcolor{rev10color}{\textbf{$\triangleright$ Reviewer\#10.}}
 
-\noindent\textbf{Q1:} Concern on insufficient efficiency evidence with increased Params/GFLOPs\\
-\noindent\textbf{A:} As shown in \cref{tab:across_arch}, we have provided FPS measurements on an A100 GPU, which together with params and GFLOPs fully demonstrate the accuracy-efficiency trade-off of our method.\\
-\noindent\textbf{Q2:} Typos, small figure fonts, and formatting issues\\
-\noindent\textbf{A:} Thanks for the careful check. We will fix all typos, adjust fonts, and polish formatting in the revised manuscript.
+\noindent\textbf{Q1: Typos, small figure fonts, and formatting issues}\\
+\noindent\textbf{A:} Thanks for careful check. We have carefully corrected typos, enlarged fonts in figures, and polished formatting.
 \end{document}
